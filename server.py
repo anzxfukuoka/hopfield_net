@@ -7,7 +7,10 @@ import base64
 import json
 import re
 
+from hopfield import image_to_data
+
 app = Flask("Hopfield Network")
+
 
 @app.route("/")
 def index():
@@ -18,8 +21,10 @@ def index():
 def save_canvas():
     image_data = re.sub('^data:image/.+;base64,', '', request.form['imageBase64'])
     im = Image.open(BytesIO(base64.b64decode(image_data)))
-    im.save('canvas.png')
+    #im.save('canvas.png')
+    image_to_data(im)
     return json.dumps({'result': 'success'}), 200, {'ContentType': 'application/json'}
+
 
 if __name__ == '__main__':
     app.run()
