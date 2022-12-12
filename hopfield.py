@@ -1,5 +1,6 @@
 import os.path
 
+import numpy
 import numpy as np
 from PIL import Image
 import glob
@@ -51,17 +52,19 @@ class HopfieldNetwork:
 
     def learn(self):
 
-        for i in range(1, self.images_count):
-            a = np.array([self.images_data[i - 1]])
+        for i in range(0, self.images_count):
+            a = np.array([self.images_data[i]])
             b = np.array([self.images_data[i]])
-            mul = np.matmul(a, b.T)
+            mul = np.multiply(b.T, a)
             self.W += mul
 
         np.fill_diagonal(self.W, 0)
         self.W /= self.image_size
 
+
     def recognize(self, image_data):
-        recognized = np.matmul(self.W, np.array(image_data).T)
+        recognized = np.matmul(self.W, np.array(image_data))
+        #sign = np.vectorize(lambda x: 1 if x < (recognized.max() - recognized.min())/2 else -1)
         sign = np.vectorize(lambda x: 1 if x < 0 else -1)
         recognized = sign(recognized)
         recognized = recognized.reshape((5, 5))
