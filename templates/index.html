@@ -1,0 +1,37 @@
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../static/style.css" />
+    <title>Hopfield Network</title>
+    <script type="text/javascript" src="../static/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../static/painter.js"></script>
+    <script type="text/javascript" src="../static/server.js"></script>
+</head>
+
+    <body onload="init()">
+    <div class="wrapper">
+        <div class="canv_wrapper">
+            <canvas class="image" id="can"></canvas>
+            <img class="image" id="canvasimg" style="display:none;">
+        </div>
+
+        <div class="buttons_wrapper">
+            <span>Color</span>
+        <div class="color_block" style="background:black;" id="black" onclick="color(this)"></div>
+            <br>
+        <span>Eraser</span>
+        <div class="color_block" style="background:white;border:2px solid;" id="white" onclick="color(this)"></div>
+            <br>
+        <input type="button" value="save" id="btn" size="30" onclick="save()">
+        <input type="button" value="send" id="snd" size="30" onclick="send()">
+        <input type="button" value="clear" id="clr" size="23" onclick="erase()">
+
+        </div>
+
+    </div>
+
+    </body>
+
+    </html>
