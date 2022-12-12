@@ -1,0 +1,43 @@
+*{
+    font-size: 16px;
+}
+
+body
+{
+    background-color: #ccc;
+
+}
+
+.wrapper
+{
+    width: max-content;
+    padding: 20px;
+    margin: 20px auto;
+
+}
+
+.color_block
+{
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}
+
+.canv_wrapper
+{
+    width: max-content;
+    margin: 10px auto;
+}
+
+.buttons_wrapper
+{
+    width: available;
+    margin: 10px auto;
+}
+
+.image {
+    image-rendering: pixelated;
+    width:400px;
+    height:400px;
+    border:2px dashed;
+}
