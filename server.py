@@ -1,6 +1,6 @@
 # AI lab 2
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from PIL import Image
 from io import BytesIO
 import base64
@@ -15,8 +15,11 @@ images_data = load_images_data(images_data_folder)
 hopNet = HopfieldNetwork(images_data)
 hopNet.learn()
 
+
+
 # flask server for web interface
 app = Flask("Hopfield Network")
+
 
 @app.route("/")
 def index():
@@ -27,10 +30,18 @@ def index():
 def save_canvas():
     image_data = re.sub('^data:image/.+;base64,', '', request.form['imageBase64'])
     im = Image.open(BytesIO(base64.b64decode(image_data)))
-    #im.save('canvas.png')
+    # im.save('canvas.png')
+
     data = image_to_data(im)
     hopNet.recognize(data)
+    print(hopNet.last_result)
+
     return json.dumps({'result': 'success'}), 200, {'ContentType': 'application/json'}
+
+
+@app.route("/get_result", methods=['GET'])
+def get_data():
+    return jsonify({'result': hopNet.last_result})
 
 
 if __name__ == '__main__':

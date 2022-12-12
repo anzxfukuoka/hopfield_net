@@ -1,7 +1,17 @@
 
-const server_url = "http://127.0.0.1:5000/hook";
+const send_url = "/hook";
+const result_url = "/get_result";
 
-console.log(server_url);
+function getResult()
+{
+    $.getJSON({
+    url: result_url,
+    success: function(data){
+        alert(data.result);
+        console.log(data)
+    }
+    });
+}
 
 function send()
 {
@@ -10,11 +20,13 @@ function send()
 
     $.ajax({
         type: "POST",
-        url: server_url,
+        url: send_url,
         data:{
             imageBase64: dataURL
         }
     }).done(function() {
         console.log('sent');
     });
+
+    getResult();
 }

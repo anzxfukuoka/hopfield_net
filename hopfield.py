@@ -50,6 +50,8 @@ class HopfieldNetwork:
         # weights of learned images
         self.W = np.zeros((self.image_size * self.image_size, self.image_size * self.image_size))
 
+        self.last_result = ""
+
     def learn(self):
 
         for i in range(0, self.images_count):
@@ -61,12 +63,18 @@ class HopfieldNetwork:
         np.fill_diagonal(self.W, 0)
         self.W /= self.image_size
 
-
+    # todo: fix п recognition
     def recognize(self, image_data):
         recognized = np.matmul(self.W, np.array(image_data))
         #sign = np.vectorize(lambda x: 1 if x < (recognized.max() - recognized.min())/2 else -1)
-        sign = np.vectorize(lambda x: 1 if x < 0 else -1)
+        sign = np.vectorize(lambda x: 1 if x > 0 else -1)
         recognized = sign(recognized)
+
+        for filename, data in self.images_to_learn.items():
+            if numpy.equal(data, recognized).all():
+                self.last_result = filename
+                return
+
+        self.last_result = ":/"
+
         recognized = recognized.reshape((5, 5))
-        print(recognized)
-        pass
