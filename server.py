@@ -9,7 +9,6 @@ import re
 
 app = Flask("Hopfield Network")
 
-
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -21,7 +20,6 @@ def save_canvas():
     im = Image.open(BytesIO(base64.b64decode(image_data)))
     im.save('canvas.png')
     return json.dumps({'result': 'success'}), 200, {'ContentType': 'application/json'}
-
 
 if __name__ == '__main__':
     app.run()
